@@ -1,0 +1,60 @@
+#include <iostream>
+#include <queue>
+#include <cstring>
+using namespace std;
+#define rep(i, a, n) for(int i = a; i < n; i++)
+char mpt[105][105];
+int vis[105][105];
+int dir[4][2] = {1, 0, -1, 0, 0, 1, 0, -1};
+int sx, sy;
+struct Node {
+int x, y, st;
+};
+int n, m;
+queue <Node > q;
+int check(int x, int y) {
+if(x >= 0 && x < n && y >= 0 && y < m
+    && mpt[x][y] != '#' && vis[x][y] == 0) return 1;
+return 0;
+}
+int bfs() {
+  while(!q.empty()) q.pop();
+      q.push(Node{sx, sy, 0});
+     vis[sx][sy] = 1;
+     while(!q.empty()) {
+     Node t = q.front();
+     q.pop();
+      if(mpt[t.x][t.y] == 'E') {
+return t.st;
+}
+    for(int i = 0; i < 4; i++) {
+    int dx = t.x + dir[i][0];
+    int dy = t.y + dir[i][1];
+    if(check(dx, dy)){
+    vis[dx][dy] = 1;
+      q.push(Node{dx, dy, t.st + 1});
+   }
+  }
+}
+return -1;
+}
+int main() {
+  while(cin >> n >> m && n&& m) {
+    memset (vis, 0, sizeof(vis));
+    for(int i = 0; i < n; i++)
+    cin >> mpt[i];
+    for(int i = 0; i < n; i++) {
+    for(int j = 0; j < m; j++) {
+    if(mpt[i][j] == 'S')
+    {
+       sx = i;
+      sy = j;
+    break;
+        }
+      }
+    }
+    int ans = bfs();
+    cout << ans << endl;
+  }
+  return 0;
+}
