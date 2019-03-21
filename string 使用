@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <iostream>
+#include<stdlib.h>
+#include<string.h>
+using namespace std;
+long long a[1000000+10];
+int main()
+{
+    string s;
+    getline(cin,s);
+    int n=s.length();
+    string::iterator it;
+    int sum=1;
+    ///cout<<s<<n<<endl;
+    for(int i=0;i<n;i++){
+        if(s[i]!=' '){
+           /// printf("%c",s[i]); sum++;
+           }
+    }
+    it=s.begin()+3;
+    ///s.erase(it);
+    s.erase(0,2);
+    s.erase(i,2);  i为位置 2为删除数量
+
+    cout << s<<endl;
+    ///cout<<sum<<endl;
+    return 0;
+}
