@@ -1,0 +1,60 @@
+/*
+UVA-10054
+串项链，项链的每个珠子都有一前一后两个颜色，
+而后面珠子的第一个颜色必须与前一个柱子的第二个颜色一样，注意最后一个
+珠子的第二个颜色也要与第一个珠子的第一个颜色相同。
+串珠子时珠子的前后颜色可以交换。
+*/
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+using namespace std;
+int edge[55][55],d[55];
+void dfs(int mid)       //寻找连通块
+{
+    for(int k=1;k<=50;k++)
+    {
+        if(edge[mid][k])
+        {
+            edge[mid][k]--;
+            edge[k][mid]--;
+            dfs(k);
+            printf("%d %d\n",k,mid);    //一定要逆序输出，这样得到的才是答案
+    }
+    }
+    return;
+}
+int main(void)
+{
+    int t,n,t0,i,j,x,y;
+    scanf("%d",&t);
+    for(t0=1;t0<=t;t0++)
+    {
+        memset(edge,0,sizeof(edge));
+        memset(d,0,sizeof(d));
+        scanf("%d",&n);
+        for(i=0;i<n;i++)
+        {
+            scanf("%d%d",&x,&y);
+            edge[x][y]++;
+            edge[y][x]++;
+            d[x]++;
+            d[y]++;
+    }
+        printf("Case #%d\n",t0);
+        for(i=1;i<=50;i++)
+        {
+            if(d[i]%2)
+                break;
+        }
+        if(i<=50)
+            printf("some beads may be lost\n");
+        else
+        {
+            for(j=1;j<=50;j++)
+                dfs(j);
+        }
+        if(t0!=t)
+            printf("\n");
+    }
+}
