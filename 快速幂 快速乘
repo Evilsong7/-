@@ -1,0 +1,21 @@
+typedef long long ll;
+ll qpow(ll x, ll n) {
+    ll res = 1;
+    while(n) {
+        if(n&1)
+            res = res * x;    //如果二进制最低位为1，则乘上x^(2^i)  取模加上%
+        x = x * x;            //将x平方  取模加上%
+        n >>= 1;            　//n/2
+    }
+    return res;
+}
+
+//快速乘法取模 
+int qmul_mod(int a,int b,int mod){
+    int ans=0;
+    while(b){
+        if((b%=mod)&1)ans+=a%=mod;//这里需要b%=mod 以及a%=mod 
+        b>>=1;a<<=1;
+    }
+    return ans%mod;  //ans也需要对mod取模 
+}
